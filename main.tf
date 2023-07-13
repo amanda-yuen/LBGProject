@@ -1,4 +1,3 @@
-# Terraform config block
 terraform {
   required_providers {
     google = {
@@ -8,7 +7,6 @@ terraform {
   }
 }
 
-#Terraform Provider
 provider "google" {
   project     = "projectlbg"
   region      = "europe-west2"
@@ -57,7 +55,7 @@ resource "google_storage_bucket" "private_bucket" {
   force_destroy               = true
   uniform_bucket_level_access = true
   retention_policy {
-    retention_period = 10 
+    retention_period = 10
   }
 }
 
@@ -91,8 +89,6 @@ resource "google_bigquery_table" "moviesheet1" {
     require_partition_filter = true
     type                     = "DAY"
   }
-
-  depends_on = [google_bigquery_dataset.dataset]
 }
 
 resource "google_bigquery_table" "moviesheet2" {
@@ -116,6 +112,4 @@ resource "google_bigquery_table" "moviesheet2" {
 
     schema = file("movies_schema.json")
   }
-
-  depends_on = [google_bigquery_dataset.dataset]
 }
