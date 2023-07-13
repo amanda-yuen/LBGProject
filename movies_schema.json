@@ -1,0 +1,38 @@
+[
+    {
+        "name": "movie_title",
+        "mode": "NULLABLE",
+        "type": "STRING",
+        "description": null,
+        "fields": []
+    },
+    {
+        "name": "production_date",
+        "mode": "NULLABLE",
+        "type": "DATE",
+        "description": null,
+        "fields": []
+    },
+    {
+        "name": "genres",
+        "mode": "NULLABLE",
+        "type": "STRING",
+        "description": null,
+        "fields": []
+    },
+    {
+        "name": "runtime_minutes",
+        "mode": "NULLABLE",
+        "type": "INTEGER",
+        "description": null,
+        "fields": []
+    },
+    {
+        "name": "director_name",
+        "mode": "NULLABLE",
+        "type": "STRING",
+        "description": null,
+        "fields": []
+    }
+]
+
