@@ -8,6 +8,7 @@ terraform {
 }
 
 provider "google" {
+  credentials = file("projectlbg-db97248e5608-key.json")
   project     = "projectlbg"
   region      = "europe-west2"
   zone        = "europe-west2-a"
@@ -18,24 +19,6 @@ resource "google_compute_network" "vpc_network" {
   auto_create_subnetworks = false
 }
 
-resource "google_compute_instance" "vm_instance" {
-  name         = "terraform-instance"
-  machine_type = "e2-small"
-  zone         = "europe-west2-a"
-
-  boot_disk {
-    initialize_params {
-      image = "debian-cloud/debian-11"
-    }
-  }
-
-  network_interface {
-    network = "default"
-    access_config {
-    }
-  }
-}
-
 resource "google_notebooks_instance" "vertexai_instance" {
   name         = "vertexai-notebook"
   machine_type = "e2-small"
@@ -43,7 +26,7 @@ resource "google_notebooks_instance" "vertexai_instance" {
 
   vm_image {
     project      = "deeplearning-platform-release"
-    image_family = "tf-latest-cpu"
+    image_family = "tf-ent-2-11-cu113-notebooks"
   }
 }
 
@@ -54,6 +37,7 @@ resource "google_storage_bucket" "private_bucket" {
   public_access_prevention    = "enforced"
   force_destroy               = true
   uniform_bucket_level_access = true
+
   retention_policy {
     retention_period = 10
   }
@@ -75,6 +59,7 @@ resource "google_bigquery_dataset" "dataset" {
 
   delete_contents_on_destroy = true
 }
+
 resource "google_bigquery_table" "moviesheet1" {
   dataset_id          = google_bigquery_dataset.dataset.dataset_id
   table_id            = "moviesheet1"
@@ -109,7 +94,5 @@ resource "google_bigquery_table" "moviesheet2" {
       skip_leading_rows = 1
       field_delimiter   = ","
     }
-
-    schema = file("movies_schema.json")
   }
 }
