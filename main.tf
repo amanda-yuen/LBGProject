@@ -8,7 +8,6 @@ terraform {
 }
 
 provider "google" {
-  credentials = file("projectlbg-db97248e5608-key.json")
   project     = "projectlbg"
   region      = "europe-west2"
   zone        = "europe-west2-a"
